@@ -12,6 +12,7 @@ public class WeekZone : MonoBehaviour
 
         if (hp <= 0)
         {
+
             Destroy(boss);
         }
     }

@@ -5,22 +5,23 @@ using UnityEngine.AI;
 
 public class BossScript : MonoBehaviour
 {
-
+    // following
     GameObject target;
     NavMeshAgent agent;
 
+    // looking to player and super attack
     Rigidbody2D rb;
-
     Vector2 targetcoord;
-
     public float chargeSpeed;
     public Transform firePoint;
 
+    //super attack reload
     public float chargeReSpeed;
-    public float reloadSpeed;
+    float reloadSpeed;
 
-    public GameObject weakZone;
-    bool switchOn = true;
+    public int damage;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -70,7 +71,7 @@ public class BossScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            Destroy(collision.gameObject);
+            collision.gameObject.GetComponent<playerScript>().TakeDamage(damage);
         }
     }
 

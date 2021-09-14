@@ -5,15 +5,17 @@ using UnityEngine.AI;
 
 public class enemy : MonoBehaviour
 {
+    //hp and death
     public int hp;
     public GameObject destroyEffect;
 
+    //following to player and looking to player
     private Rigidbody2D rb;
-
-    GameObject target;
     Vector2 targetcoord;
+    GameObject target;
     NavMeshAgent agent;
 
+    //Shooting
     public GameObject bulletPrefab;
     public Transform firePoint;
     public float bulletSpeed;

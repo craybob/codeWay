@@ -5,58 +5,64 @@ using UnityEngine.UI;
 
 public class playerScript : MonoBehaviour
 {
+    // Movement
     public float speed;
-
+    private Vector2 moveVelocity;
+    private Rigidbody2D rb;
+    
+    //HP and death
     public int hp;
+    public GameObject destroyEffect;
+    bool alive = true;
+    
+    //Indicators
     public Text hpText;
     public Text ammoText;
     
-
-    private Vector2 moveVelocity;
-    private Rigidbody2D rb;
-
+    //Looking to mouse
     public Camera cam;
-
     Vector2 mousePos;
-
-    public GameObject destroyEffect;
-
     playerShoot shootScript;
 
-    bool alive = true;
 
-
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         shootScript = GetComponent<playerShoot>();
+
+        Time.timeScale = 1f;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
+        //Move direction
         Vector2 moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         moveVelocity = moveInput.normalized * speed;
-
+        //mouse direction
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
 
+
+        destroy();
+        Indicators();
+    }
+
+    void FixedUpdate()
+    {
+        //movement with physics
+        rb.MovePosition(rb.position + moveVelocity * Time.deltaTime);
+        //looking to mouse direction
+        Vector2 lookdir = mousePos - rb.position;
+        float angle = Mathf.Atan2(lookdir.y, lookdir.x) * Mathf.Rad2Deg - 90f;
+        rb.rotation = angle;
+    }
+
+    void destroy()
+    {
         if (hp <= 0 && alive == true)
         {
             Death();
         }
-
-        Indicators();
-    }
-
-
-    void FixedUpdate()
-    {
-        rb.MovePosition(rb.position + moveVelocity * Time.deltaTime);
-
-        Vector2 lookdir = mousePos - rb.position;
-        float angle = Mathf.Atan2(lookdir.y, lookdir.x) * Mathf.Rad2Deg - 90f;
-        rb.rotation = angle;
     }
 
     void Death()
@@ -80,8 +86,9 @@ public class playerScript : MonoBehaviour
 
     void GameOver()
     {
-        Time.timeScale = 0f; 
+        Time.timeScale = 0f;
         shootScript.enabled = false;
+        Destroy(gameObject);
     }
 
     void Indicators()

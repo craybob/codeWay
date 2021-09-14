@@ -6,17 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class playerShoot : MonoBehaviour
 {
-
+    //Shooting
     public GameObject bulletPrefab;
     public Transform firePoint;
     public float bulletSpeed = 20f;
 
     private Animator playerAnim;
 
+    public int weapons;
+    //Audio
     public AudioSource effectSound;
     public AudioClip[] audioClip;
     public AudioSource musicSource;
-
+    //Reload
     public int ammo;
     bool attack = true;
     public int magazine = 24;
@@ -31,16 +33,35 @@ public class playerShoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetButtonDown("Fire1"))
+        changeWeapons();
+        if (weapons == 0)
         {
-            if (ammo != 0 && attack )
+            if (Input.GetButtonDown("Fire1"))
             {
-                Shoot();
+                if (ammo != 0 && attack)
+                {
+                    playerAnim.SetTrigger("attack");
+                    Shoot();
+                }
+                else if (ammo <= 0)
+                {
+                    attack = false;
+                }
             }
-            else if (ammo <= 0)
+        }
+        if (weapons == 1)
+        {
+            if (Input.GetButton("Fire1"))
             {
-                attack = false;
+                if (ammo != 0 && attack)
+                {
+                    playerAnim.SetTrigger("gunAttack");
+                    Shoot();
+                }
+                else if (ammo <= 0)
+                {
+                    attack = false;
+                }
             }
         }
         if (Input.GetKeyDown(KeyCode.R))
@@ -66,10 +87,24 @@ public class playerShoot : MonoBehaviour
         attack = true;
     }
 
+    void changeWeapons()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            weapons = 0;
+            playerAnim.SetInteger("Weapons", weapons);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            weapons = 1;
+            playerAnim.SetInteger("Weapons", weapons);
+        }
+    }
+
     void Shoot()
     {
         effectSound.PlayOneShot(audioClip[0]);
-        playerAnim.SetTrigger("attack");
 
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
