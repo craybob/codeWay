@@ -22,26 +22,35 @@ public class playerShoot : MonoBehaviour
     public int ammo;
     bool attack = true;
     public int magazine = 24;
+    int filledMagazine;
+
+    //AK attack speed
+    float currentSpeed;
+    public float attackSpeed;
 
 
     void Start()
     {
         playerAnim = GetComponent<Animator>();
         musicSource.PlayOneShot(audioClip[4]);
+        currentSpeed = attackSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
         changeWeapons();
+        currentSpeed -= Time.deltaTime;
+
         if (weapons == 0)
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                Shoot();
-                playerAnim.SetTrigger("attack");
-                
-               if (ammo <= 0)
+                if (ammo != 0 && attack)
+                {
+                    Shoot();
+                }
+                else if (ammo <= 0)
                 {
                     attack = false;
                 }
@@ -49,12 +58,11 @@ public class playerShoot : MonoBehaviour
         }
         if (weapons == 1)
         {
-            if (Input.GetKey(KeyCode.Mouse0))
+            if (Input.GetButton("Fire1"))
             {
-                if (ammo != 0 && attack)
+                if (ammo != 0 && attack && currentSpeed <= 0)
                 {
-                    playerAnim.SetTrigger("gunAttack");
-                    Shoot();
+                    Ak();
                 }
                 else if (ammo <= 0)
                 {
@@ -73,7 +81,7 @@ public class playerShoot : MonoBehaviour
     {
         if (magazine > 0)
         {
-            ammo = 12;
+            ammo = filledMagazine;
             magazine--;
         }
 
@@ -91,31 +99,42 @@ public class playerShoot : MonoBehaviour
         {
             weapons = 0;
             playerAnim.SetInteger("Weapons", weapons);
-            Debug.Log("Pistol");
+            filledMagazine = 12;
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             weapons = 1;
             playerAnim.SetInteger("Weapons", weapons);
-            Debug.Log("Gun");
+            filledMagazine = 36;
         }
     }
 
     void Shoot()
     {
         effectSound.PlayOneShot(audioClip[0]);
+        //playerAnim.SetTrigger("attack");
 
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.up * bulletSpeed , ForceMode2D.Impulse);
+
 
         ammo -= 1;
     }
 
     void Ak()
     {
+        effectSound.PlayOneShot(audioClip[0]);
+        //playerAnim.SetTrigger("gunAttack");
 
+        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        rb.AddForce(firePoint.up * bulletSpeed, ForceMode2D.Impulse);
+
+        currentSpeed = attackSpeed;
+
+        ammo -= 1;
     }
 
 
