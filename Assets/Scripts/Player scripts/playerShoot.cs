@@ -38,12 +38,10 @@ public class playerShoot : MonoBehaviour
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                if (ammo != 0 && attack)
-                {
-                    playerAnim.SetTrigger("attack");
-                    Shoot();
-                }
-                else if (ammo <= 0)
+                Shoot();
+                playerAnim.SetTrigger("attack");
+                
+               if (ammo <= 0)
                 {
                     attack = false;
                 }
@@ -51,7 +49,7 @@ public class playerShoot : MonoBehaviour
         }
         if (weapons == 1)
         {
-            if (Input.GetButton("Fire1"))
+            if (Input.GetKey(KeyCode.Mouse0))
             {
                 if (ammo != 0 && attack)
                 {
@@ -93,12 +91,14 @@ public class playerShoot : MonoBehaviour
         {
             weapons = 0;
             playerAnim.SetInteger("Weapons", weapons);
+            Debug.Log("Pistol");
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             weapons = 1;
             playerAnim.SetInteger("Weapons", weapons);
+            Debug.Log("Gun");
         }
     }
 
@@ -111,6 +111,11 @@ public class playerShoot : MonoBehaviour
         rb.AddForce(firePoint.up * bulletSpeed , ForceMode2D.Impulse);
 
         ammo -= 1;
+    }
+
+    void Ak()
+    {
+
     }
 
 
