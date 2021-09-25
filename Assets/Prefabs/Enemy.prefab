@@ -77,8 +77,8 @@ SpriteRenderer:
   m_SortingLayerID: -1655291525
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -6010826059458110781, guid: e8a3ab9bf63ad164387c0ee695fe4b43, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.09281945, a: 1}
+  m_Sprite: {fileID: 2731795287329381114, guid: b6e69a8748f38e84eb20e81888dc128f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -101,18 +101,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.014793158, y: 0}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1.875}
+    oldSize: {x: 2.875, y: 2.375}
     newSize: {x: 1, y: 1.875}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9704137, y: 1.8579998}
+  m_Size: {x: 2.8360453, y: 2.2928462}
   m_EdgeRadius: 0
 --- !u!50 &4701467685687488606
 Rigidbody2D:
@@ -149,7 +149,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 5
+  m_StoppingDistance: 3
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa0b79a80b57dfb4cab47d214f0f39d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 1
+  hp: 3
   destroyEffect: {fileID: 2762915052719906506, guid: a116f6338b28a7a41b07a8865508dbc8, type: 3}
   bulletPrefab: {fileID: 4006532316709276815, guid: 98848bf000653ad4d998cf3a5315b557, type: 3}
   firePoint: {fileID: 1882792295934821579}

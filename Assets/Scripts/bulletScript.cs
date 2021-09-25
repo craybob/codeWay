@@ -27,7 +27,7 @@ public class bulletScript : MonoBehaviour
             collision.gameObject.GetComponent<enemy>().TakeDamage(damage);
             destroy();
         }
-        if (collision.gameObject.tag == "Boss")
+        if (collision.gameObject.tag == "boss")
         {
             collision.gameObject.GetComponent<WeekZone>().TakeDamage(damage);
             destroy();

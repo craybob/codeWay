@@ -47,10 +47,12 @@ public class enemy : MonoBehaviour
     {
         float distance = Vector3.Distance(transform.position,target.transform.position);
 
+
         if (distance <= 10)
         {
             agent.SetDestination(target.transform.position);
             targetcoord = new Vector2(target.transform.position.x, target.transform.position.y);
+            anim.SetBool("move", true);
 
             if (attack <= 0)
             {
@@ -58,9 +60,14 @@ public class enemy : MonoBehaviour
             }
             else
             {
-                anim.SetBool("attack", false);
                 attack -= Time.deltaTime;
             }
+            
+        }
+
+        else
+        {
+            anim.SetBool("move", false);
         }
 
 
@@ -78,6 +85,9 @@ public class enemy : MonoBehaviour
     public void TakeDamage(int Damage)
     {
         hp -= Damage;
+        anim.SetTrigger("hurt");
+
+        anim.SetBool("move", true);
     }
 
     void death()
@@ -93,7 +103,6 @@ public class enemy : MonoBehaviour
 
     void Eshoot()
     {
-        anim.SetBool("attack", true);
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(firePoint.up * bulletSpeed, ForceMode2D.Impulse);

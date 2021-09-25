@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class playerShoot : MonoBehaviour
 {
@@ -17,7 +16,6 @@ public class playerShoot : MonoBehaviour
     //Audio
     public AudioSource effectSound;
     public AudioClip[] audioClip;
-    public AudioSource musicSource;
     //Reload
     public int ammo;
     bool attack = true;
@@ -32,7 +30,6 @@ public class playerShoot : MonoBehaviour
     void Start()
     {
         playerAnim = GetComponent<Animator>();
-        musicSource.PlayOneShot(audioClip[4]);
         currentSpeed = attackSpeed;
     }
 
@@ -75,6 +72,10 @@ public class playerShoot : MonoBehaviour
             effectSound.PlayOneShot(audioClip[1]);
             Invoke("Reload", 2f);
         }
+
+
+
+
     }
 
     void Reload()

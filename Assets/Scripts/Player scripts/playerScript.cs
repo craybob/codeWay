@@ -23,12 +23,14 @@ public class playerScript : MonoBehaviour
     public Camera cam;
     Vector2 mousePos;
     playerShoot shootScript;
+    gameManagerScript gmScript;
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         shootScript = GetComponent<playerShoot>();
+        gmScript = GetComponent<gameManagerScript>();
 
         Time.timeScale = 1f;
     }
@@ -72,8 +74,8 @@ public class playerScript : MonoBehaviour
         BoxCollider2D col = GetComponent<BoxCollider2D>();
         SpriteRenderer sprt = GetComponent<SpriteRenderer>();
         playerScript thisScript = GetComponent<playerScript>();
-        shootScript.musicSource.Stop();
-        shootScript.musicSource.PlayOneShot(shootScript.audioClip[5]);
+        gmScript.musicSource.Stop();
+        gmScript.musicSource.PlayOneShot(shootScript.audioClip[5]);
         thisScript.enabled = false;
         col.enabled = false;
         sprt.enabled = false;
